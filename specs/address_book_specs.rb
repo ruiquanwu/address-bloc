@@ -4,7 +4,6 @@ RSpec.describe AddressBook do
        book = AddressBook.new
        expect(book).to respond_to(:entries)
      end
-   end
  
    it "should initialize entries as an array" do
        book = AddressBook.new
@@ -16,7 +15,6 @@ RSpec.describe AddressBook do
        expect(book.entries.size).eql? 0
      end
    end
-
    context ".add_entry" do
      it "adds only one entry to the address book" do 
        book = AddressBook.new     
@@ -33,6 +31,19 @@ RSpec.describe AddressBook do
        expect(new_entry.name).eql? 'Ada Lovelace'
        expect(new_entry.phone_number).eql? '010.012.1815'
        expect(new_entry.email).eql? 'augusta.king@lovelace.com'
+     end
+     
+     context ".remove_entry" do
+       it "removed one entry from address book" do
+         book = AddressBook.new     
+         book.add_entry('Ada Lovelace', '010.012.1815', 'augusta.king@lovelace.com')
+       
+        # expect(book.entries.size).eql? 1
+
+         book.remove_entry(book.entries[0])
+         expect(book.entries.size).eql? 0
+         
+       end
      end
    end
  end
