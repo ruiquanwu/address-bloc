@@ -15,6 +15,7 @@ class MenuController
     puts "4 - Import entries from a CSV"
     puts "5 - Exit"
     puts "6 - View Entry Number n"
+    puts "7 - delete all entries"
     print "Enter your selection: "
     
     selection = gets.to_i
@@ -50,27 +51,30 @@ class MenuController
       else
         puts "#{@address_book.entries[view_entry_num - 1].to_s}"
       end
+      
+      when 7
+        detonate
+        main_menu
  # #9
      else
        system "clear"
        puts "Sorry, that is not a valid input"
        main_menu
      end
-    
-     begin
-       entry_count = @address_book.import_from_csv(file_name)
-       system "clear"
-       puts "#{entry_count} new entries added from #{file_name}"
-     rescue
-       puts "#{file_name} is not a valid CSV file, please enter the name of a valid CSV file"
-       read_csv
-     end
-    
+      
    end
   
    def delete_entry(entry)
      @address_book.entries.delete(entry)
      puts "#{entry.name} has been deleted"
+   end
+  
+   def detonate
+     while @address_book.entries.count > 0
+       @address_book.entries.each do |entry|
+         delete_entry(entry)
+       end
+     end
    end
   
    def edit_entry(entry)
